@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+</head>
+
+<body>
+    <div class="stage">
+        <canvas id="canvas" width="300" height="300" ">
+
+        </canvas>
+    </div>
+    <div class=" score"></div>
+    <div class="hiscore"></div>
+    <button>开始游戏</button>
+    <div class="voice"></div>
+
+    <style>
+        #canvas {
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+        }
+
+        .stage {
+            width: 100%;
+            height: 100%;
+            max-width: 300px;
+            max-height: 300px;
+            /* width: 300px;
+            height: 300px; */
+            position: relative;
+            top: 0;
+            left: 0;
+            border: 1px solid black;
+            margin: 0 auto;
+        }
+
+        .score {
+            width: 100px;
+            margin: 0 auto;
+        }
+
+        .hiscore {
+            width: 100px;
+            margin: 0 auto;
+        }
+
+        i {
+            display: block;
+            position: absolute;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            left: -18px;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        var count = 0
+        var stage = document.querySelector('.stage')
+        var blocksize = 10
+        var gameover = false
+        var t = null
+        var tail
+        var blockInwidth = (parseInt(window.getComputedStyle(stage).width) - parseInt(window.getComputedStyle(stage)
+            .width) % 10) / blocksize
+        var blockInheight = (parseInt(window.getComputedStyle(stage).height) - parseInt(window.getComputedStyle(stage)
+            .height) % 10) / blocksize
+        document.querySelector('.score').innerHTML = '分数：' + 0
+        btn = document.getElementsByTagName('button')[0]
+
+//定义蛇身体的组成部分
+        var Block = function (col, row) {
+            this.col = col
+            this.row = row
+        }
+
+//定义蛇的身体，方向
+        var Snake = function () {
+            this.segments = [
+                new Block(3, 1),
+                new Block(2, 1),
+                new Block(1, 1),
+            ]
+            this.direction = 'right'
+            this.nextdirection = 'right'
+            this.tail = undefined
+        }
+        var snake = new Snake()
+        var block = new Block()
+
+
+        //产生一个随机数
+        var randomnumber = (s) => {
+            return Math.ceil(Math.random() * s)
+        }
+        // function randomnumber(s) {
+        //     return Math.ceil(Math.random() * s)
+        // }
+
+        //定义苹果
+        var Apple = function () {
+            this.segment = new Block(10, 20)
+        }
+        var apple = new Apple()
+
+        //苹果添加画的方法
+        Apple.prototype.draw = function () {
+            this.segment.draw('red')
+            this.segment.node.style.borderRadius = '50%'
+        }
+
+        //苹果移动 箭头函数内部没有constructor方法，也没有prototype，所有不支持new操作
+        Apple.prototype.move = function () {
+            var randomnum1 = randomnumber(blockInwidth)
+            var randomnum2 = randomnumber(blockInheight)
+            do {
+                var needReGenerate = false
+                this.segment.col = randomnum1
+                this.segment.row = randomnum2
+                this.segment.node.style.left = (randomnum1 - 1) * blocksize + 'px'
+                this.segment.node.style.top = (randomnum2 - 1) * blocksize + 'px'
+                snake.segments.forEach(element => {
+                    if (element.col == randomnum1 && element.row == randomnum2) {
+                        needReGenerate = true
+                    }
+                });
+                // snake.segments.forEach(function (element) {
+                //     if (element.col == randomnum1 && element.row == randomnum2) {
+                //         needReGenerate = true
+                //     }
+                // })
+            } while (needReGenerate);
+        }
+
+
+//组成元素的画的方法
+        Block.prototype.draw = function (color) {
+            if (this.node) {
+                stage.removeChild(this.node)
+            }
+            this.node = document.createElement('i')
+            this.node.style.width = '10px'
+            this.node.style.height = '10px'
+            this.node.style.background = color
+            this.node.style.top = (this.row - 1) * blocksize + 'px'
+            this.node.style.left = (this.col - 1) * blocksize + 'px'
+            stage.appendChild(this.node)
+        }
+
+        //蛇的显示
+        Snake.prototype.draw = function () {
+            if (this.tail) {
+                // 删掉dom里面的 尾巴
+                stage.removeChild(this.tail.node)
+            }
+            this.segments.forEach(element => {
+                element.draw('orange')
+            });
+            // this.segments.forEach(function (element) {
+            //     element.draw('orange')
+            // })
+            this.segments[0].draw('black')
+
+        }
+
+        //蛇的移动
+        Snake.prototype.move = function () {
+            // debugger
+            var head = this.segments[0]
+            var newHead
+            this.direction = this.nextdirection
+
+            switch (this.direction) {
+                case 'right':
+                    newHead = new Block(head.col + 1, head.row)
+                    break;
+                case 'left':
+                    newHead = new Block(head.col - 1, head.row)
+                    break;
+                case 'up':
+                    newHead = new Block(head.col, head.row - 1)
+                    break;
+                case 'down':
+                    newHead = new Block(head.col, head.row + 1)
+                    break;
+            }
+            this.segments.unshift(newHead)
+            if (apple.segment.col == snake.segments[0].col && apple.segment.row == snake.segments[0].row) {
+                apple.move()
+                apple.draw()
+                sounds("9586.mp3")
+                count++
+                console.log(count);
+                document.querySelector('.score').innerHTML = '得分：' + count
+            } else {
+                // debugger
+                this.tail = this.segments.pop()
+            }
+        }
+
+
+        //设置蛇移动的方向
+        Snake.prototype.setDirection = function (newdirection) {
+            if (this.direction == 'right' && newdirection == 'left') {
+                return
+            }
+            if (this.direction == 'left' && newdirection == 'right') {
+                return
+            }
+            if (this.direction == 'up' && newdirection == 'down') {
+                return
+            }
+            if (this.direction == 'down' && newdirection == 'up') {
+                return
+            }
+            this.nextdirection = newdirection
+        }
+
+        //蛇的碰撞检测
+        Snake.prototype.check = function () {
+            var rightcollision = snake.segments[0].col > blockInwidth
+            var leftcollision = snake.segments[0].col <= 0
+            var upcollision = snake.segments[0].row <= 0
+            var downcollision = snake.segments[0].row > blockInheight
+            if (rightcollision || leftcollision || upcollision || downcollision) {
+                sounds("shu.mp3")
+                // setTimeout(function () {
+                //     alert("呜呜撞墙啦")
+                // }, 100)
+                setTimeout(() => {
+                    alert("呜呜撞墙啦")
+                },  100);
+                clearInterval(t)
+                score(count)
+                if (count >= 2) {
+                    clearInterval(v)
+                }
+                gameover = true
+                // setTimeout(function () {
+                //     location.reload()
+                // }, 200)
+                setTimeout(() => {
+                    location.reload()
+                }, 200);
+                // 
+            }
+            for (var i = 1; i < snake.segments.length; i++) {
+                if (snake.segments[0].col == snake.segments[i].col && snake.segments[0].row == snake.segments[i]
+                    .row) {
+                    sounds("shu.mp3")
+                    // setTimeout(function () {
+                    //     alert('撞到自己啦啦啦啦')
+                    // }, 100)
+                    setTimeout(() => {
+                        alert('撞到自己啦啦啦啦')
+                    }, 100);
+                    score(count)
+                    clearInterval(t)
+                    clearInterval(v)
+                    gameover = true
+                    // location.reload()
+                    //游戏结束之后自动重新加载页面
+                    // setTimeout(function () {
+                    //     location.reload()
+                    // }, 200)
+                    setTimeout(() => {
+                        location.reload()
+                    }, 200);
+                }
+            }
+
+        }
+
+
+
+        snake.draw()
+        var x = {
+            37: 'left',
+            38: 'up',
+            39: 'right',
+            40: 'down'
+        }
+        window.onkeydown = function (e) {
+            console.log(e.keyCode);
+            if (x[e.keyCode]) {
+                snake.setDirection(x[e.keyCode])
+            }
+        }
+        apple.draw()
+        var canclick = true
+
+
+        btn.onclick = function () {
+            if (canclick == true) {
+                canclick = false
+                t = setInterval(function () {
+                    snake.move()
+                    snake.check()
+                    if (count >= 2) {
+                        clearInterval(t)
+                        v = setInterval(function () {
+                            snake.move()
+                            snake.check()
+                            if (gameover) {
+                                return
+                            }
+                            snake.draw()
+                        }, 100)
+                    }
+                    if (gameover) {
+                        return
+                    }
+                    snake.draw()
+                }, 200)
+            }
+
+            // apple.draw()
+        }
+
+
+        //画布方法画苹果
+        // var c = document.getElementById("canvas");
+        // var ctx = c.getContext("2d");
+        function newapple() {
+            var c = document.getElementById("canvas");
+            var ctx = c.getContext("2d");
+            ctx.clearRect(0, 0, c.width, c.height)
+            // ctx.clearRect(0,0,300,300);  
+            var randomnum3 = randomnumber(300)
+            var randomnum4 = randomnumber(300)
+            ctx.arc(randomnum3, randomnum4, 5, 0, 2 * Math.PI)
+            ctx.fillstyle = 'blue'
+            ctx.fill()
+        }
+
+        //声音函数
+        // var voice = document.getElementsByClassName('voice')[0]
+        // function sounds(y) {
+        //     var audio = document.createElement("AUDIO");
+        //     var voice = document.getElementsByClassName('voice')[0]
+        //     audio.setAttribute("src", y);
+        //     audio.setAttribute("controls", "controls");
+        //     audio.setAttribute("autoplay", "autoplay");
+        //     voice.appendChild(audio);
+        //     voice.style.display = 'none'
+        //     audio.addEventListener("ended", function () {
+        //         voice.removeChild(audio)
+        //     });
+        // }
+        var sounds = (y)=> {
+            var audio = document.createElement("AUDIO");
+            var voice = document.getElementsByClassName('voice')[0]
+            audio.setAttribute("src", y);
+            audio.setAttribute("controls", "controls");
+            audio.setAttribute("autoplay", "autoplay");
+            voice.appendChild(audio);
+            voice.style.display = 'none'
+            // audio.addEventListener("ended", function () {
+            //     voice.removeChild(audio)
+            // });
+            audio.addEventListener('ended',
+                event => voice.removeChild(audio))
+        }
+
+        //保存最高分
+        document.querySelector('.hiscore').innerHTML = '最高分是：' + Cookies.get('scores')
+        // Cookies.set('scores',count);
+        // function score(x) {
+        //     if (!Cookies.get('scores')) {
+        //         Cookies.set('scores', count)
+        //     }
+        //     // Cookies.set('scores', count);
+        //     if (Cookies.get('scores') < x) {
+        //         Cookies.set('scores', x);
+        //     }
+        // }
+        var score= (x) => {
+            if (!Cookies.get('scores')) {
+                Cookies.set('scores', count)
+            }
+            // Cookies.set('scores', count);
+            if (Cookies.get('scores') < x) {
+                Cookies.set('scores', x);
+            }
+        }
+    </script>
+</body>
+
+</html>

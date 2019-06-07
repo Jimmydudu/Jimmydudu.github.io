@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" />
+</head>
+
+<body>
+    <div class="lis">
+        <li>
+            <img src="img/a1.png" alt="" srcset="">
+        </li>
+        <li>
+            <img src="img/a2.png" alt="" srcset="">
+        </li>
+        <li>
+            <img src="img/a3.png" alt="" srcset="">
+        </li>
+        <li>
+            <img src="img/a4.png" alt="" srcset="">
+        </li>
+
+    </div>
+    <div class="stage">
+        <img src="img/a1.png" alt="" srcset="">
+        <div class="left"><span class="fa fa-arrow-left"></span></div>
+        <div class="right"><span class="fa fa-arrow-right"></span></div>
+        <div class="mask">
+            <img src="img/a1.png" alt="" srcset="">
+        </div>
+    </div>
+    <select name="fav" id="">
+        <!-- <option value="1">1x</option> -->
+        <option value="2">2x</option>
+        <option value="3">3x</option>
+        <option value="4">4x</option>
+    </select>
+
+    <style>
+        .lis li {
+            list-style: none;
+            width: 40px;
+            height: 40px;
+            float: left;
+            margin-left: 20px;
+            border: 2px solid lightgray;
+            padding: 2px;
+            cursor: url(img/33.png), auto;
+        }
+
+        .lis::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .lis li:first-child {
+            margin-left: 0;
+        }
+
+        .lis li.active {
+            border: 2px solid red;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        .lis li.active::after {
+            content: '';
+            display: block;
+            border-top: 5px solid lightcoral;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            width: 0;
+            height: 0;
+            position: absolute;
+            left: 50%;
+            margin-left: -5px;
+        }
+
+        .lis li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .stage {
+            width: 0px;
+            height: 0px;
+            margin-top: 30px;
+            background: lightcoral;
+            position: relative;
+            top: 0;
+            left: 0;
+            transition: all 0.3s;
+        }
+
+        .stage img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .stage .right {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            opacity: 0;
+            z-index: 4;
+        }
+
+        .stage .left {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            opacity: 0;
+            z-index: 4;
+        }
+
+        .stage span {
+            color: lightgray;
+        }
+
+        .mask {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            border: 3px solid white;
+            border-radius: 50%;
+            display: none;
+
+        }
+
+        .mask img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        select {
+            position: absolute;
+            left: 350px;
+            top: 20px;
+        }
+    </style>
+    <script>
+        var lis = document.querySelectorAll('.lis li')
+        var stage = document.querySelector('.stage')
+        var right = document.getElementsByClassName('right')[0]
+        var left = document.getElementsByClassName('left')[0]
+
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].onclick = function () {
+                    showPic(this)
+                    this.style.cursor = "url(img/22.png),auto"
+                    mask.style.opacity=1
+            }
+        }
+
+        right.onclick = function () {
+            var currentShow = findCurrent()
+            if (currentShow.nextElementSibling) {
+                willshow = currentShow.nextElementSibling
+            } else {
+                willshow = lis[0]
+            }
+            showPic(willshow)
+            willshow.style.cursor = "url(img/22.png),auto"
+        }
+
+        left.onclick = function () {
+            var currentShow = findCurrent()
+            if (currentShow.previousElementSibling) {
+                willshow = currentShow.previousElementSibling
+            } else {
+                willshow = lis[lis.length - 1]
+            }
+            showPic(willshow)
+            willshow.style.cursor = "url(img/22.png),auto"
+        }
+
+        //展示图片
+        function showPic(params) {
+            lis.forEach(function (element) {
+                element.className = ''
+                element.style.cursor = "url(img/33.png),auto"
+            });
+            stage.style.opacity = 1
+            right.style.opacity = 1
+            left.style.opacity = 1
+            params.className = 'active'
+            stage.style.width = '400px'
+            stage.style.height = '400px'
+            stage.querySelector('img').src = params.querySelector('img').src
+            mask.querySelector('img').src=params.querySelector('img').src
+        }
+
+//寻找当前为active的li
+        function findCurrent() {
+            var currentShow
+            lis.forEach(function (element) {
+                if (element.className === 'active') {
+                    // console.log(element);
+                    currentShow = element
+                }
+            });
+            return currentShow
+        }
+         
+        var mask = document.getElementsByClassName('mask')[0]
+        var select = document.getElementsByTagName('select')[0]
+        var newim = document.querySelector('.mask img')
+        stage.onmousemove = function (e) {
+            mask.style.display='block'
+            newim.style.width = 400 * select.value + 'px'
+            newim.style.height = 400 * select.value + 'px'
+            var x = e.pageX - stage.offsetLeft -100 /2;
+            var y = e.pageY - stage.offsetTop-100 /2;
+            // console.log(x);
+            // console.log(y);
+            
+            // if (x < -50) {
+            //     x = -50;
+            // }
+            // if (x > 350) {
+            //     x = 350;
+            // }
+            // if (y < -50) {
+            //     y = -50;
+            // }
+            // if (y > 350) {
+            //     y = 350;
+            // }
+            if (x < 0 | x > 300 | y < 0 | y > 300) {
+                return
+            }
+            mask.style.top = y + 'px'
+            mask.style.left = x + 'px'
+            newim.style.top = -y * select.value - 100 /2 * (select.value - 1) + 'px'
+            newim.style.left = -x * select.value - 100 /2 * (select.value - 1) + 'px'
+
+        }
+              
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script> -->
+</head>
+
+<body>
+    <div class="stage">
+        <div class="bigbox">
+            <div class="box1">
+                <img src="0a405.jpg" alt="" srcset="">
+            </div>
+            <div class="box2">
+                <img src="a03.jpg" alt="" srcset="">
+            </div>
+            <div class="box3">
+                <img src="b4e.jpg" alt="" srcset="">
+            </div>
+            <div class="box4">
+                <img src="dfdb.jpg" alt="" srcset="">
+            </div>
+            <div class="box5">
+                <img src="d1e.jpg" alt="" srcset="">
+            </div>
+            <div class="box6">
+                <img src="effcd.jpg" alt="" srcset="">
+            </div>
+
+        </div>
+    </div>
+    <div class="bian">
+        <li><img src="0a405.jpg" alt="" srcset=""></li>
+        <li><img src="a03.jpg" alt="" srcset=""></li>
+        <li><img src="b4e.jpg" alt="" srcset=""></li>
+        <li><img src="dfdb.jpg" alt="" srcset=""></li>
+        <li><img src="d1e.jpg" alt="" srcset=""></li>
+        <li><img src="effcd.jpg" alt="" srcset=""></li>
+    </div>
+    <style>
+        body{
+            background: #494A5F;
+        }
+        .stage{
+            perspective: 500px;
+        }
+        .bigbox {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+             margin-top: 100px; 
+            /* margin-left: 500px;  */
+            position: relative;
+            top: 0;
+            left: 0;
+            transform-style: preserve-3d;
+            cursor: move;
+            transition: all 1s;
+        }
+        .bigbox img{
+            width: 100%;
+        }
+
+        .bigbox div[class^=box] {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0 0 18px #e70;
+        }
+
+        .box1 {
+            transform: rotateY(90deg) translateZ(-100px);
+        }
+
+        .box2 {
+            transform: translateZ(-100px);
+        }
+
+        .box3 {
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .box4 {
+            transform: rotateX(90deg) translateZ(-100px);
+        }
+
+        .box5 {
+            transform: rotateX(90deg) translateZ(100px);
+        }
+        .box6{
+            transform: translateZ(100px);
+        }
+        .bian{
+            width: 450px;
+            height: 240px;
+            margin: 40px auto;
+        }
+        .bian li{
+            list-style: none;
+            width: 100px;
+            height: 100px;
+            float: left;
+            border: 3px solid white;
+            flex-basis: 100px;
+            margin: 20px;
+        }
+        .bian li.active{
+            border: 3px solid #e70;
+        }
+        .bian li img{
+            width: 100%;
+        }
+    </style>
+    <script>
+        var x,n,b,v,c,y,p
+        var bigbox = document.querySelector('.bigbox')
+        function main(event) {
+            event.preventDefault();
+            console.log(x-event.clientX)
+            console.log(y-event.clientY)
+            bigbox.style.transform = 'rotateX('+(y-event.clientY) +'deg) rotateY(' + (x-event.clientX) + 'deg)' 
+        }
+        document.querySelector('.bigbox').onmousedown=function (e) {
+            x=e.clientX;
+            y=e.clientY;
+            this.addEventListener('mousemove', main)
+            n=bigbox.style.transform;
+            console.log(n);
+            b=n.split(" ")[1]
+            c=n.split(" ")[0]
+            console.log(b);
+            console.log(c);
+            v=parseInt(b.slice(8,-4))
+            p=parseInt(c.slice(8,-4))
+            console.log(v); 
+            x+=v 
+            y+=p
+        }
+        document.querySelector('.bigbox').onmouseup=function (e) {
+            x=e.clientX;
+            this.removeEventListener('mousemove', main)
+
+        }
+        var item = document.getElementsByClassName('bian')[0]
+        var img =document.querySelectorAll('.bian li')
+        img[0].onclick = function(){
+            for (let j = 0; j < img.length; j++) {
+                img[j].className=''
+            }
+            this.className ='active'
+            bigbox.style.transform = 'rotateY(450deg)'
+        }
+        img[1].onclick = function(){
+            for (let j = 0; j < img.length; j++) {
+                img[j].className=''
+            }
+            this.className ='active'
+            bigbox.style.transform = 'rotatex(180deg) rotateZ(180deg)'
+        }
+        img[2].onclick = function(){
+            for (let j = 0; j < img.length; j++) {
+                img[j].className=''
+            }
+            this.className ='active'
+            bigbox.style.transform = 'rotateY(270deg)'
+        }
+        img[3].onclick = function(){
+            for (let j = 0; j < img.length; j++) {
+                img[j].className=''
+            }
+            this.className ='active'
+            bigbox.style.transform = 'rotatex(90deg) rotateZ(90deg)'
+        }
+        img[4].onclick = function(){
+            for (let j = 0; j < img.length; j++) {
+                img[j].className=''
+            }
+            this.className ='active'
+            bigbox.style.transform = 'rotatex(-90deg) '
+        }
+        img[5].onclick = function(){
+            for (let j = 0; j < img.length; j++) {
+                img[j].className=''
+            }
+            this.className ='active'
+            bigbox.style.transform = 'rotateX(360deg) '
+        }
+    </script>
+</body>
+
+</html>

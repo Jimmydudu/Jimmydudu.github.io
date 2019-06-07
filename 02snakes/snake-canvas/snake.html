@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="stage">
+            <div class="btn3">
+                    <img src="静音.png" alt="" srcset="">
+                </div>
+        <canvas id="canvas" width="300" height="300" style='border:1px solid black'></canvas>
+        <div class="text">
+            <div>当前玩家：<span id="name"></span></div><br />
+            <div>得分：<span id="score">0</span></div><br />
+            <div><span>排行榜TOP6</span>
+                <ul id="ranking">
+                        <!-- li.innerHTML="玩家："+ranking[f].name+"------最高分："+ranking[f].score; -->
+                    <!-- <li>玩家：-- ------最高分：--</li>
+                    <li>玩家：-- ------最高分：--</li>
+                    <li>玩家：-- ------最高分：--</li>
+                    <li>玩家：-- ------最高分：--</li>
+                    <li>玩家：-- ------最高分：--</li> -->
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <button class="btn1">开始游戏</button>
+    <button class="btn2">背景音乐</button>
+
+    <!-- <button class="btn3">静音</button> -->
+    <div class="voice"></div>
+    <audio id="bgsounds" controls="controls" src="7895.mp3"></audio>
+    <style>
+        body{
+            background-image: url("4.jpg")
+        }
+        .stage {
+            width: 700px;
+            margin: 0 auto;
+        }
+
+        .text {
+            width: 300px;
+            height: 300px;
+            /* border: 1px solid red; */
+            float: right;
+        }
+        .btn3{
+            width: 20px;
+            height: 20px;
+            background: lightseagreen;
+            border-radius: 50%;
+        }
+        .btn3 img{
+            width: 100%;
+        }
+    </style>
+    <script src="snake.js"></script>
+</body>
+
+</html>

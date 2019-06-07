@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>省市区三级浮动</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <fieldset>
+        <legend>按级选中省市县/区</legend>
+        <label  for="choice">您的选择是：
+            <input id="choice" type="text">
+        </label>
+        <div class="province">
+            <ul class="title">
+                <li value="0">省份</li>
+                <li value="1">城市</li>
+                <li value="2">县区</li>
+            </ul>
+            <div class="show">
+                <ul class="add-wrap"></ul>
+            </div>
+        </div>
+        <button type="button" class="btn">确定</button>
+    </fieldset>
+    <script src="city2.js"></script>
+    <script src="test.js"></script>
+</body>
+
+</html>
