@@ -1,0 +1,163 @@
+body {
+    background: #333;
+
+    .stage {
+        width: 320px;
+        height: 560px;
+        margin: 0 auto;
+        // margin-top: 50px;
+        position: relative;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+
+        .screen {
+            background: #31558a;
+            transition: all 1s;
+            position: absolute;
+
+            .nav {
+                padding: 20px 15px;
+                margin-bottom: 25px;
+                background: #385e97;
+
+                .child {
+                    width: 24px;
+                    height: 2px;
+                    background: white;
+                    margin: 3px;
+                }
+
+                .x {
+                    .child;
+                    transition: all 1s;
+                }
+
+                .y {
+                    .child;
+                    transition: all 1s;
+                }
+
+                .z {
+                    .child;
+                    transition: all 1s;
+                }
+            }
+
+            .lis {
+                overflow: hidden;
+
+                .item {
+                    margin-top: 5px;
+                    overflow: hidden;
+                    margin-bottom: 20px;
+                    float: left;
+
+                    .img {
+                        width: 70px;
+                        float: left;
+                        height: 70px;
+                        background: #214273;
+                        margin-left: 26px;
+                    }
+
+                    .pra {
+                        float: left;
+                        margin-left: 30px;
+
+                        p {
+                            width: 180px;
+                            height: 10px;
+                            background: #214273;
+                            margin-bottom: 18px;
+
+                            &:last-child {
+                                width: 80px;
+                            }
+                        }
+
+                    }
+                }
+
+
+
+            }
+
+            &.active {
+                .three {
+                   
+                    .z {
+                        opacity: 0;
+                    }
+
+                    .x {
+                        // transform: rotate(45deg);
+                        transform:  rotateZ(45deg);
+                    }
+
+                    .y {
+                        transform:translateY(-3px) rotate(-45deg) ;
+                    }
+                }
+
+                // margin-left: 250px;
+                transform: translateX(250px);
+            }
+        }
+
+        .menu {
+            position: absolute;
+            width: 320px;
+            height: 579px;
+
+            background: url("./golden.jpg");
+            // position: absolute;
+            top: 0px;
+            left: -320px;
+            transition: all 1s;
+
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            li {
+                list-style: none;
+                margin: 30px auto;
+                position: relative;
+                z-index: 1;
+                text-align: center;
+                &:first-child {
+                    // padding-top: 100px;
+                    margin-top: 140px;
+                }
+
+                a {
+                    text-decoration: none;
+                    color: white;
+                    letter-spacing: 1px;
+                    font-size: 30px;
+                    text-align: center;
+                }
+            }
+
+            &.active {
+                transform: translateX(250px);
+                li{
+                    a{
+
+                    }
+                }
+
+            }
+        }
+
+
+    }
+}

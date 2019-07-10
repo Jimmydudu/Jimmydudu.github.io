@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" />
+</head>
+<body>
+    <div class="stage">
+        
+        <div class="small">
+                <div class="circle"><span class="fa fa-exchange"></span></div>
+        </div>
+        <input type="range" name="slider"  value="50%" step="1" min="0" max="100">
+        
+    </div>
+    <style>
+        .stage{
+            width: 500px;
+            height: 500px;
+            background-image: url('old.jpg');
+            background-repeat: no-repeat;
+            /* background-position: auto 100%; */
+            background-size: auto 100%;
+            margin: 0 auto;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+        .stage .small{
+            width: 50%;
+            height: 100%;
+            background-image: url('new.jpg');
+            background-size: auto 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-right: 2px solid rgba(0, 0, 0, 0.1);
+        }
+        .stage input{
+            width: 100%;
+            position: absolute;
+            bottom:0;
+            left: 0;
+            height: 100%;
+            opacity: 0;
+        }
+        .stage .small .circle{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            margin-top: -10px;
+            background-color:rgba(0, 0, 0, 0.1);
+            color: lightgray;
+        }
+        .stage .small .circle span{
+            line-height: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+    <script>
+        var slider=document.getElementsByName('slider')[0]
+        var small=document.querySelector('.stage .small')
+        slider.oninput=function(){
+            console.log(this.value);
+            small.style.width=this.value + '%'     
+        }
+        
+    </script>
+
+</body>
+</html>

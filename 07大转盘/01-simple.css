@@ -1,0 +1,19 @@
+.top {
+  width: 650px;
+  margin: 0 auto;
+  border: 1px solid lightcoral;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.top .turntable {
+  position: absolute;
+  top: 60px;
+  left: 117px;
+}
+.top .pointer {
+  position: absolute;
+  top: 158px;
+  left: 258px;
+}
+/*# sourceMappingURL=./01-simple.css.map */

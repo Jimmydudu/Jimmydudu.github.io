@@ -1,0 +1,361 @@
+body,
+html {
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.stage {
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateX(0deg) rotateY(0deg);
+          transform: rotateX(0deg) rotateY(0deg);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-perspective: 1500px;
+          perspective: 1500px;
+  background: -webkit-linear-gradient(330deg, rgba(50, 150, 100, 0.4), rgba(0, 0, 100, 0));
+  background: linear-gradient(120deg, rgba(50, 150, 100, 0.4), rgba(0, 0, 100, 0));
+}
+.stage::before {
+  content: '';
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 200, 0.4), rgba(0, 0, 200, 0));
+  background: linear-gradient(0deg, rgba(0, 0, 200, 0.4), rgba(0, 0, 200, 0));
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.stage::after {
+  content: '';
+  background: -webkit-linear-gradient(210deg, rgba(150, 50, 50, 0.4), rgba(0, 0, 200, 0));
+  background: linear-gradient(240deg, rgba(150, 50, 50, 0.4), rgba(0, 0, 200, 0));
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.stage .card {
+  width: 250px;
+  height: 300px;
+  margin: 0 auto;
+  background: url('abc.jpg') no-repeat center;
+  background-size: cover;
+  border-radius: 10px;
+  position: relative;
+  top: 0;
+  left: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-perspective: 500px;
+          perspective: 500px;
+  -webkit-transform: translateZ(170px) rotateX(0deg);
+          transform: translateZ(170px) rotateX(0deg);
+  -webkit-transition: all 1s cubic-bezier(0.49, 0.15, 0.46, 1.15);
+  transition: all 1s cubic-bezier(0.49, 0.15, 0.46, 1.15);
+  -webkit-transform-origin: center center 100px;
+          transform-origin: center center 100px;
+  display: -webkit-box;
+  display: flex;
+  align-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+}
+.stage .card > * {
+  flex-basis: 100%;
+}
+.stage .card .child {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+.stage .card::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+.stage .card::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  background: #000000;
+  -webkit-transform: translateZ(-20px);
+          transform: translateZ(-20px);
+}
+.stage .card h2 {
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 300;
+  color: white;
+}
+.stage .card p {
+  font-size: 16px;
+  font-weight: 300;
+  color: white;
+  line-height: 30px;
+}
+.stage .card h3 {
+  font-size: 30px;
+  line-height: 30px;
+  color: white;
+  font-weight: 300;
+  -webkit-transform: translateZ(0px) translateY(0px);
+          transform: translateZ(0px) translateY(0px);
+}
+.stage .card .chart {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-perspective: 1500px;
+          perspective: 1500px;
+}
+.stage .card .chart .bar {
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin: 7px;
+  line-height: 100%;
+  text-align: center;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-perspective: 1700px;
+          perspective: 1700px;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+.stage .card .chart .bar i {
+  display: block;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  width: 15px;
+  height: 15px;
+  background: white;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  font-size: 11px;
+}
+.stage .card .chart .bar::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: -webkit-linear-gradient(top, #feffff 0%, #ddf1f9 0%, #a0d8ef 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #ddf1f9 0%, #a0d8ef 100%);
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transform: rotateY(-90deg);
+          transform: rotateY(-90deg);
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+.stage .card .chart .bar::after {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: -webkit-linear-gradient(top, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotateX(-90deg);
+          transform: rotateX(-90deg);
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+.stage .card.active {
+  -webkit-transform: translateZ(170px) rotateX(60deg);
+          transform: translateZ(170px) rotateX(60deg);
+}
+.stage .card.active::before {
+  box-shadow: 0px 30px 40px 0px rgba(0, 0, 0, 0.75);
+}
+.stage .card.active::after {
+  box-shadow: 0px 30px 40px 0px rgba(0, 0, 0, 0.75);
+}
+.stage .card.active .chart .bar:nth-child(1) i {
+  -webkit-transform: translateZ(90px);
+          transform: translateZ(90px);
+}
+.stage .card.active .chart .bar:nth-child(1)::before {
+  width: 90px;
+  content: '20,000';
+  text-align: right;
+  font-size: 8px;
+}
+.stage .card.active .chart .bar:nth-child(1)::after {
+  height: 90px;
+}
+.stage .card.active .chart .bar:nth-child(1) i {
+  background: -webkit-linear-gradient(top, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+}
+.stage .card.active .chart .bar:nth-child(2) i {
+  -webkit-transform: translateZ(60px);
+          transform: translateZ(60px);
+}
+.stage .card.active .chart .bar:nth-child(2)::before {
+  width: 60px;
+  content: '10,000';
+  text-align: right;
+  font-size: 8px;
+}
+.stage .card.active .chart .bar:nth-child(2)::after {
+  height: 60px;
+}
+.stage .card.active .chart .bar:nth-child(2) i {
+  background: -webkit-linear-gradient(top, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+}
+.stage .card.active .chart .bar:nth-child(3) i {
+  -webkit-transform: translateZ(60px);
+          transform: translateZ(60px);
+}
+.stage .card.active .chart .bar:nth-child(3)::before {
+  width: 60px;
+  content: '15,000';
+  text-align: right;
+  font-size: 8px;
+}
+.stage .card.active .chart .bar:nth-child(3)::after {
+  height: 60px;
+}
+.stage .card.active .chart .bar:nth-child(3) i {
+  background: -webkit-linear-gradient(top, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+}
+.stage .card.active .chart .bar:nth-child(4) i {
+  -webkit-transform: translateZ(97px);
+          transform: translateZ(97px);
+}
+.stage .card.active .chart .bar:nth-child(4)::before {
+  width: 97px;
+  content: '24,000';
+  text-align: right;
+  font-size: 8px;
+}
+.stage .card.active .chart .bar:nth-child(4)::after {
+  height: 97px;
+}
+.stage .card.active .chart .bar:nth-child(4) i {
+  background: -webkit-linear-gradient(top, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+}
+.stage .card.active .chart .bar:nth-child(5) i {
+  -webkit-transform: translateZ(30px);
+          transform: translateZ(30px);
+}
+.stage .card.active .chart .bar:nth-child(5)::before {
+  width: 30px;
+  content: '7,000';
+  text-align: right;
+  font-size: 8px;
+}
+.stage .card.active .chart .bar:nth-child(5)::after {
+  height: 30px;
+}
+.stage .card.active .chart .bar:nth-child(5) i {
+  background: -webkit-linear-gradient(top, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+}
+.stage .card.active .chart .bar:nth-child(6) i {
+  -webkit-transform: translateZ(30px);
+          transform: translateZ(30px);
+}
+.stage .card.active .chart .bar:nth-child(6)::before {
+  width: 30px;
+  content: '7,000';
+  text-align: right;
+  font-size: 8px;
+}
+.stage .card.active .chart .bar:nth-child(6)::after {
+  height: 30px;
+}
+.stage .card.active .chart .bar:nth-child(6) i {
+  background: -webkit-linear-gradient(top, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+}
+.stage .card.active .chart .bar:nth-child(7) i {
+  -webkit-transform: translateZ(60px);
+          transform: translateZ(60px);
+}
+.stage .card.active .chart .bar:nth-child(7)::before {
+  width: 60px;
+  content: '10,000';
+  text-align: right;
+  font-size: 8px;
+}
+.stage .card.active .chart .bar:nth-child(7)::after {
+  height: 60px;
+}
+.stage .card.active .chart .bar:nth-child(7) i {
+  background: -webkit-linear-gradient(top, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+  background: linear-gradient(to bottom, #feffff 0%, #85d7f7 0%, #4c8596 100%);
+}
+.stage .card.active h3 {
+  -webkit-transform: translateZ(20px);
+          transform: translateZ(20px);
+}
+.stage .card.active h2 {
+  opacity: 0;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  -webkit-transform: translateZ(20px);
+          transform: translateZ(20px);
+}
+.stage .card.active p {
+  opacity: 0;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  -webkit-transform: translateZ(20px);
+          transform: translateZ(20px);
+}
+/*# sourceMappingURL=./chart.css.map */

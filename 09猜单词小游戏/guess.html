@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var array = [
+            "computer",
+            "view",
+            "water",
+            "flower",
+            "fish"
+        ]
+
+
+        var randomword = array[Math.floor(Math.random() * array.length)]
+        console.log(randomword);
+        var answerarry = []
+        for (var i = 0; i < randomword.length; i++) {
+
+            answerarry[i] = '_'
+        }
+        console.log(answerarry);
+
+        function hintuser() {
+            alert(answerarry.join(' ') + '字母长度为' + randomword.length)
+        }
+
+        function getletter() {
+            return prompt("输入一个字母猜猜看，不玩请按‘取消’结束游戏")
+        }
+
+        var radomlength = randomword.length
+
+        function updateletter(guess) {
+            for (var i = 0; i < randomword.length; i++) {
+                if (randomword[i] == guess) {
+
+                    if (answerarry[i] == '_') {
+                        radomlength--
+                        answerarry[i] = guess
+                    }
+
+                }
+
+            }
+            console.log(answerarry);
+
+        }
+
+        function congratulate() {
+            alert('恭喜你，答案是' + answerarry.join(' '))
+        }
+
+        function bigname(txt) {
+            String(txt)
+            return txt.toLowerCase()
+
+        }
+
+        var j = radomlength + 5
+        while ((radomlength > 0) && (j > 0)) {
+
+
+            hintuser();
+
+            var guess = getletter();
+
+            if (guess == null) {
+                break;
+            } else {
+                guess = guess.toLowerCase();
+                if (guess.length > 1) {
+                    alert('一次仅输入一个字母')
+
+                } else if (randomword.indexOf(guess) == -1) {
+
+                    console.log("没有此单词");
+
+                } else {
+                    guess = guess.toLowerCase();
+                    updateletter(guess);
+                    console.log(radomlength);
+                }
+                if (radomlength == 0) {
+                    
+                    break
+                }
+                j--
+                console.log('j=' + j);
+            }
+
+            if (j==0) {
+                alert('请你重新开始')
+            j = radomlength + 5
+            for (var z = 0; z < randomword.length; z++) {
+                answerarry[z] = '_'
+            }
+            }
+            
+            
+        }
+
+        // console.log('radomlength=' + radomlength);
+        // console.log('answerarry.length=' + answerarry.length);
+        if (radomlength == 0) {
+            congratulate()
+        } else {
+            alert("游戏结束")
+        }
+    </script>
+</body>
+
+</html>

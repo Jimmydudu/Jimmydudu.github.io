@@ -95,22 +95,6 @@ body .x-header .x-grid li {
   color: white;
   list-style: none;
 }
-body .x-header .x-grid li:nth-child(1).animation {
-  -webkit-transform: translateY(-900px);
-          transform: translateY(-900px);
-}
-body .x-header .x-grid li:nth-child(2).animation {
-  -webkit-transform: translateY(200px);
-          transform: translateY(200px);
-}
-body .x-header .x-grid li:nth-child(3).animation {
-  -webkit-transform: translateY(200px);
-          transform: translateY(200px);
-}
-body .x-header .x-grid li:nth-child(4).animation {
-  -webkit-transform: translateY(-900px);
-          transform: translateY(-900px);
-}
 body .x-header .x-grid li .card {
   background-color: #6CA6CD;
   text-align: center;
@@ -468,7 +452,6 @@ body .x-copyright .x-four a:nth-child(1) {
   background-image: url(../images/img-sprite1.png);
   background-position-x: 2px;
   float: left;
-  margin: 20px;
 }
 body .x-copyright .x-four a:nth-child(2) {
   width: 60px;
@@ -476,7 +459,6 @@ body .x-copyright .x-four a:nth-child(2) {
   background-image: url(../images/img-sprite1.png);
   background-position-x: -53px;
   float: left;
-  margin: 20px;
 }
 body .x-copyright .x-four a:nth-child(3) {
   width: 60px;
@@ -484,7 +466,6 @@ body .x-copyright .x-four a:nth-child(3) {
   background-image: url(../images/img-sprite1.png);
   background-position-x: -107px;
   float: left;
-  margin: 20px;
 }
 body .x-copyright .x-four a:nth-child(4) {
   width: 60px;
@@ -492,7 +473,6 @@ body .x-copyright .x-four a:nth-child(4) {
   background-image: url(../images/img-sprite1.png);
   background-position-x: -167px;
   float: left;
-  margin: 20px;
 }
 body .x-navitem {
   -webkit-transition: all 0.3s;
@@ -508,9 +488,6 @@ body .x-navitem .breadcrumb {
   display: flex;
   -webkit-box-pack: center;
           justify-content: center;
-}
-body .x-navitem .breadcrumb li {
-  margin-left: 30px;
 }
 body .x-navitem .breadcrumb li::before {
   content: '';
@@ -565,4 +542,4 @@ body .x-name p a:hover {
             transform: scale(1);
   }
 }
-/*# sourceMappingURL=./school.css.map */
+/*# sourceMappingURL=./index.css.map */

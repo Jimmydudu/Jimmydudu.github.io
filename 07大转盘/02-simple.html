@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="01-simple.css">
+</head>
+<body>
+    <div class="top">
+        <img class="bg" src="images/lottery-turntable-bg.jpg" alt="">
+        <img class="turntable" src="images/lottery-turntable.png" alt="">
+        <img class="pointer" src="images/lottery-pointer.png" alt="">
+    </div>
+
+    <script>
+        var bg=document.getElementsByClassName('bg')[0]
+        var turntable=document.getElementsByClassName('turntable')[0]
+        var pointer=document.getElementsByClassName('pointer')[0]
+        var code;
+        var text;
+        var angle
+
+      function lottery(funa){
+            
+            
+            if (funa>=95) {
+               code=1
+                text="免单4999元"
+            } 
+            else if(funa>=90){
+                code=2
+                text="免单50元"
+            }
+            else if(funa>=80){
+                code=3
+                text="免单10元"
+            }
+            else if(funa>=70){
+                code=4
+                text="免单5元"
+            }
+            else if(funa>=60){
+                code=5
+                text="免分期服务费"
+            }
+            else if(funa>=50){
+                code=6
+                text="提高白条额度"
+            }
+            else{
+                code=7
+                text="未中奖"
+            }
+      
+       }
+
+       function turn(c){
+        angle = 30 + (c - 1) * (360 / 7) ;
+        turntable.style.transition='all 3s'   
+        turntable.style.transform='rotate('+ (angle + 1080) +'deg)'
+       }
+       
+       function generate() {
+        var x=Math.floor(Math.random() * 100)
+        return x;
+       }
+
+
+
+       var canclick=true
+        pointer.onclick=function(){
+           
+            if (canclick==true) {
+                canclick=false
+                var y=generate()
+                lottery(y)
+                console.log(code, text);
+                turn(code)
+                setTimeout(function () {
+                    turntable.style.transition='all 0s'   
+                    canclick=true
+                    turntable.style.transform='rotate('+ angle +'deg)'
+                    alert(text)
+                }   
+                , 3000);
+        }
+        }
+       
+       
+
+       
+    </script>
+</body>
+</html>
