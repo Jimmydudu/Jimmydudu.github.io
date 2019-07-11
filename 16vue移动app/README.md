@@ -1,5 +1,7 @@
 # momo
 
+![Image text](https://github.com/Jimmydudu/Jimmydudu.github.io/blob/master/img/360%E6%88%AA%E5%9B%BE20190711144619564.jpg)
+
 ## Project setup
 ```
 npm install
